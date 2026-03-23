@@ -6,8 +6,17 @@ convert a video to a color limited, dithered format with an optional custom pale
 `numpy`
 `ffmpeg`
 
+## setup
+`python3 -m venv venv`
+
+`source venv/bin/activate`
+
+`pip install -r requirements.txt`
+
+make sure ffmpeg is in your PATH
+
 ## usage
-`./retrovid.py --input <input> --output <output> [options] [flags]`
+`python3 retrovid.py --input <input> --output <output> [options] [flags]`
 
 ## options
 `--input <input>` path to input video (any video format ffmpeg supports)
@@ -53,12 +62,12 @@ convert a video to a color limited, dithered format with an optional custom pale
 
 ## examples
 ### convert a video using the default settings (gameboy camera style)
-`./retrovid.py --input input.mp4 --output output.mkv`
+`python3 retrovid.py --input input.mp4 --output output.mkv`
 
 <!--![example 1](docs/example1.png)-->
 
 ### convert a video to 135×240 with auto-crop, using a custom 8 color palette, audio and upscale to x8 (instagram vertical style)
-`./retrovid.py --input input.mp4 --output output.mkv --width 135 --height 240  --max-colors 8 --palette "#242040,#322d56,#404465,#655970,#9f687f,#cc7d75,#d4ae90,#d1d7ab" --auto-crop --enable-audio --up-scale-factor 8`
+`python3 retrovid.py --input input.mp4 --output output.mkv --width 135 --height 240  --max-colors 8 --palette "#242040,#322d56,#404465,#655970,#9f687f,#cc7d75,#d4ae90,#d1d7ab" --auto-crop --enable-audio --up-scale-factor 8`
 
 <!--![example 2](docs/example2.png)-->
 
