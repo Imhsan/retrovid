@@ -32,7 +32,7 @@ app = "retrovid"
 log = logging.getLogger(app)
 ffmpeg = "ffmpeg"
 
-debug = True
+debug = False
 
 # ------------------------------------------------------------------------------
 def create_lookup_table(palette_original, palette_custom):
