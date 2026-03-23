@@ -24,21 +24,21 @@ convert a video to a color limited, dithered format with an optional custom pale
 
 `--contrast <contrast>` adjust contrast (default: `1.0`, range: `-1000.0 to 1000.0`)
 
-`--gamma <gamma>` adjust gamma correction (default: `1.0`, range: `0.1 to 10.0`)
+`--gamma <gamma>` adjust gamma-correction (default: `1.0`, range: `0.1 to 10.0`)
 
 `--max-colors <maxcolors>` maximum number of colors in the output (default: `4`, range: `1-256`)
 
-`--palette <palette>` comma separated list colors in `#RRGGBB` format (default: `""`)
+`--palette <palette>` comma-separated list of colors in `#RRGGBB` format (default: `""`)
 
 `--dither <ditherer>` dithering algorithm to use (default: `bayer`, choices: `bayer`, `heckbert`, `floyd_steinberg`, `sierra2`, `sierra2_4a`, `sierra3`, `burkes`, `atkinson`, `none`)
 
 `--bayer-scale <factor>` scale factor for bayer dithering (default: `2`, range: `0-5`)
 
-`--down-scaler <scaler>` down scaling algorithm to use (default: `bicubic`, choices: `fast_bilinear`, `bilinear`, `bicubic`, `neighbor`, `area`, `bicublin`, `gauss`, `sinc`, `lanczos`, `spline`)
+`--down-scaler <scaler>` down-scaling algorithm to use (default: `bicubic`, choices: `fast_bilinear`, `bilinear`, `bicubic`, `neighbor`, `area`, `bicublin`, `gauss`, `sinc`, `lanczos`, `spline`)
 
-`--up-scaler <scaler>` up scaling algorithm to use (default: `neighbor`, choices: `fast_bilinear`, `bilinear`, `bicubic`, `neighbor`, `area`, `bicublin`, `gauss`, `sinc`, `lanczos`, `spline`)
+`--up-scaler <scaler>` up-scaling algorithm to use (default: `neighbor`, choices: `fast_bilinear`, `bilinear`, `bicubic`, `neighbor`, `area`, `bicublin`, `gauss`, `sinc`, `lanczos`, `spline`)
 
-`--up-scale-factor <factor>` up scale factor applied to output (default: `None`)
+`--up-scale-factor <factor>` up-scale factor applied to output (default: `None`)
 
 `--threads <threads>` number of threads to use per ffmpeg process
 
@@ -47,7 +47,7 @@ convert a video to a color limited, dithered format with an optional custom pale
 
 `--auto-crop` automatically crop and resize input video to match output video size and aspect ratio
 
-`--enable-audio` copy audio from the input video
+`--enable-audio` transcode audio from the input video
 
 `--color-mode` preserve colors instead of converting to grayscale
 

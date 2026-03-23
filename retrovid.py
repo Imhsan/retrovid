@@ -72,7 +72,6 @@ def process_run(cmd, stdin=None):
 
     try:
         process = subprocess.Popen(cmd, stdin=stdin_pipe, stdout=subprocess.PIPE, stderr=None)
-
     except Exception as err:
         raise RuntimeError(f"failed to start process") from err
 
@@ -87,7 +86,6 @@ def process_run(cmd, stdin=None):
 def process_stream(cmd, stdin_pipe=None):
     try:
         process = subprocess.Popen(cmd, stdin=stdin_pipe, stdout=subprocess.PIPE, stderr=None)
-
     except Exception as err:
         raise RuntimeError(f"failed to start process") from err
 
@@ -100,7 +98,6 @@ def process_read(process, size):
     while len(data) < size:
         try:
             chunk = process.stdout.read(size - len(data))
-
         except Exception as err:
             return None # just return None here
 
@@ -116,7 +113,6 @@ def process_write(process, data):
     try:
         process.stdin.write(data)
         process.stdin.flush()
-
     except Exception as err:
         raise
 
@@ -133,7 +129,6 @@ def process_close(process):
 def process_wait(process):
     try:
         process.wait(timeout=5)
-
     except subprocess.TimeoutExpired:
         process.terminate()
 
@@ -203,7 +198,6 @@ def filter_preprocess(args):
     if args.auto_crop:
         filters.append(f"scale=w={args.width}:h={args.height}:force_original_aspect_ratio=increase:flags={args.down_scaler}")
         filters.append(f"crop=w={args.width}:h={args.height}")
-
     else:
         filters.append(f"scale=w={args.width}:h={args.height}:flags={args.down_scaler}")
 
@@ -339,7 +333,6 @@ def pipeline(args):
         while True:
             try:
                 frame_bytes = process_read(preprocess_proc, frame_size)
-
             except Exception as err:
                 interrupt = True
 
@@ -353,7 +346,6 @@ def pipeline(args):
 
             try:
                 process_write(postprocess_proc, frame_bytes)
-
             except Exception as err:
                 interrupt = True
 
@@ -458,7 +450,6 @@ def validate_palette_arg(parser, argument, palette, maxcolors, colormode):
             r = int(color[1:3], 16)
             g = int(color[3:5], 16)
             b = int(color[5:7], 16)
-
         except ValueError:
             parser.error(f"argument {argument}: invalid palette: '{palette}' (invalid value: '{color}')")
 
@@ -505,20 +496,20 @@ def arg_parser():
     options.add_argument("--gamma", metavar="<gamma>", type=float, default=None, help="adjust gamma correction (default: 1.0, range: 0.1 to 10.0)")
 
     options.add_argument("--max-colors", metavar="<maxcolors>", type=int, default=4, help="maximum number of colors in the output (default: %(default)s, range: 1-256)")
-    options.add_argument("--palette", metavar="<palette>", default="", help="comma seperated list of colors in #RRGGBB format (default: \"\")")
+    options.add_argument("--palette", metavar="<palette>", default="", help="comma-seperated list of colors in #RRGGBB format (default: \"\")")
     options.add_argument("--dither", metavar="<ditherer>", choices=["bayer", "heckbert", "floyd_steinberg", "sierra2", "sierra2_4a", "sierra3", "burkes", "atkinson", "none"], default="bayer", help="dithering algorithm to use (default: %(default)s, choices: %(choices)s)")
     options.add_argument("--bayer-scale", metavar="<factor>", type=int, default=2, help="scale factor for bayer dithering (default: %(default)s, range: 0–5)")
 
-    options.add_argument("--down-scaler", metavar="<scaler>", choices=["fast_bilinear", "bilinear", "bicubic", "neighbor", "area", "bicublin", "gauss", "sinc", "lanczos", "spline"], default="bicubic", help="down scaling algorithm to use (default: %(default)s, choices: %(choices)s)")
-    options.add_argument("--up-scaler", metavar="<scaler>", choices=["fast_bilinear", "bilinear", "bicubic", "neighbor", "area", "bicublin", "gauss", "sinc", "lanczos", "spline"], default="neighbor", help="up scaling algorithm to use (default: %(default)s, choices: %(choices)s)")
-    options.add_argument("--up-scale-factor", metavar="<factor>", type=int, default=None, help="up scale factor applied to output (default: %(default)s)")
+    options.add_argument("--down-scaler", metavar="<scaler>", choices=["fast_bilinear", "bilinear", "bicubic", "neighbor", "area", "bicublin", "gauss", "sinc", "lanczos", "spline"], default="bicubic", help="down-scaling algorithm to use (default: %(default)s, choices: %(choices)s)")
+    options.add_argument("--up-scaler", metavar="<scaler>", choices=["fast_bilinear", "bilinear", "bicubic", "neighbor", "area", "bicublin", "gauss", "sinc", "lanczos", "spline"], default="neighbor", help="up-scaling algorithm to use (default: %(default)s, choices: %(choices)s)")
+    options.add_argument("--up-scale-factor", metavar="<factor>", type=int, default=None, help="up-scale factor applied to output (default: %(default)s)")
 
-    options.add_argument("--threads", metavar="<threads>", type=int, default=0, help="number of threads to use per ffmpeg process")
+    options.add_argument("--threads", metavar="<threads>", type=int, default=0, help="number of threads to use per ffmpeg process (default: all)")
 
     flags = parser.add_argument_group("flags")
     flags.add_argument("--overwrite", default=False, action="store_true", help="overwrite existing output video")
     flags.add_argument("--auto-crop", default=False, action="store_true", help="automatically crop and resize input video to match output video size and aspect ratio")
-    flags.add_argument("--enable-audio", default=False, action="store_true", help="copy audio from the input video")
+    flags.add_argument("--enable-audio", default=False, action="store_true", help="transcode audio from the input video")
     flags.add_argument("--color-mode", default=False, action="store_true", help="preserve colors instead of converting to grayscale")
 
     return parser
@@ -581,20 +572,17 @@ def main():
 if __name__ == "__main__":
     try:
         main()
-
     except KeyboardInterrupt:
         sys.exit(1)
 
     except Exception as err:
         if len(err.args) >= 2 and isinstance(err.args[1], str):
             msg = err.args[1].lower()
-
         else:
             msg = str(err).lower()
 
         if isinstance(err, (RuntimeError, OSError, ValueError)):
             log.error(f"{app} error: {msg}")
-
         else:
             log.error(f"{app} unexpected error: {msg}")
 
