@@ -64,12 +64,12 @@ make sure ffmpeg is in your PATH
 ### convert a video using the default settings (gameboy camera style)
 `python3 retrovid.py --input input.mp4 --output output.mkv`
 
-<!--![example 1](docs/example1.png)-->
+![example 1](docs/example1.png)
 
 ### convert a video to 135×240 with auto-crop, using a custom 8 color palette, audio and upscale to x8 (instagram vertical style)
 `python3 retrovid.py --input input.mp4 --output output.mkv --width 135 --height 240  --max-colors 8 --palette "#242040,#322d56,#404465,#655970,#9f687f,#cc7d75,#d4ae90,#d1d7ab" --auto-crop --enable-audio --up-scale-factor 8`
 
-<!--![example 2](docs/example2.png)-->
+![example 2](docs/example2.png)
 
 ## license
 copyright (c) 2026 imhsan, licensed under the gnu gpl v3
