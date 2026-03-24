@@ -2,21 +2,41 @@
 convert a video to a color limited, dithered format with an optional custom palette using ffmpeg
 
 ## requirements
-`python`
+`python3`
 `numpy`
 `ffmpeg`
 
 ## setup
-`python3 -m venv venv`
+### linux
+`git clone https://github.com/imhsan/retrovid.git`
+
+`cd retrovid`
+
+`python -m venv venv`
 
 `source venv/bin/activate`
 
 `pip install -r requirements.txt`
 
-make sure ffmpeg is in your PATH
+### windows
+`winget install --id Git.Git --exact --source winget`
+
+`winget install --id Python.Python.3.9 --exact --source winget`
+
+`winget install --id Gyan.FFmpeg --exact --source winget`
+
+`git clone https://github.com/imhsan/retrovid.git`
+
+`cd retrovid`
+
+`python -m venv venv`
+
+`venv\Scripts\activate`
+
+`pip install -r requirements.txt`
 
 ## usage
-`python3 retrovid.py --input <input> --output <output> [options] [flags]`
+`python retrovid.py --input <input> --output <output> [options] [flags]`
 
 ## options
 `--input <input>` path to input video (any video format ffmpeg supports)
@@ -62,12 +82,12 @@ make sure ffmpeg is in your PATH
 
 ## examples
 ### convert a video using the default settings (gameboy camera style)
-`python3 retrovid.py --input input.mp4 --output output.mkv`
+`python retrovid.py --input input.mp4 --output output.mkv`
 
 ![example 1](docs/example1.png)
 
 ### convert a video to 135×240 with auto-crop, using a custom 8 color palette, audio and upscale to x8 (instagram vertical style)
-`python3 retrovid.py --input input.mp4 --output output.mkv --width 135 --height 240  --max-colors 8 --palette "#242040,#322d56,#404465,#655970,#9f687f,#cc7d75,#d4ae90,#d1d7ab" --auto-crop --enable-audio --up-scale-factor 8`
+`python retrovid.py --input input.mp4 --output output.mkv --width 135 --height 240  --max-colors 8 --palette "#242040,#322d56,#404465,#655970,#9f687f,#cc7d75,#d4ae90,#d1d7ab" --auto-crop --enable-audio --up-scale-factor 8`
 
 ![example 2](docs/example2.png)
 
